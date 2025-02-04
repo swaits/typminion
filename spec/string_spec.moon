@@ -1,4 +1,4 @@
-require "src.util.string"
+require "lib.util.string"
 
 describe "string.split", ->
   it "returns an empty table when given an empty string", ->

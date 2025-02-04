@@ -1,4 +1,4 @@
-require "lib.util.validators"
+require "src.util.validators"
 
 describe "validators", ->
   describe "is_valid_timer", ->
@@ -28,16 +28,13 @@ describe "validators", ->
       assert.is_true result
 
     it "returns false when passed a non-number (string)", ->
-      result = is_valid_timer "10"
-      assert.is_false result
+      assert.is_false => is_valid_timer "10"
 
     it "returns false when passed a non-number (boolean true)", ->
-      result = is_valid_timer true
-      assert.has_false result
+      assert.has_false => is_valid_timer true
 
     it "returns false when passed a non-number (table)", ->
-      result = is_valid_timer { foo: "bar" }
-      assert.has_false result
+      assert.has_false => is_valid_timer { foo: "bar" }
 
   describe "is_valid_symbol", ->
     -- When the input is not a string, it should immediately return false.
@@ -78,17 +75,17 @@ describe "validators", ->
       result = is_valid_symbol "AbCdEf"
       assert.is_true result
 
-    it "returns true for a string with numbers", ->
+    it "returns false for a string with numbers", ->
       result = is_valid_symbol "abc123"
-      assert.is_true result
+      assert.is_false result
 
     it "returns false for a string with punctuation", ->
       result = is_valid_symbol "hello!"
       assert.is_false result
 
-    it "returns true for a string with an underscore", ->
+    it "returns false for a string with an underscore", ->
       result = is_valid_symbol "a_b"
-      assert.is_true result
+      assert.is_false result
 
     it "returns false for a string containing whitespace", ->
       result = is_valid_symbol "abc def"

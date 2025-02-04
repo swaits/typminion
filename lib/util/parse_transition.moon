@@ -1,5 +1,5 @@
-require "src.util.string"
-require "src.util.validators"
+require "lib.util.string"
+require "lib.util.validators"
 
 ---
 -- parse_transition
@@ -23,19 +23,13 @@ export parse_transition = (trans) ->
     when "on"
       unless is_valid_symbol words[3]
         error "Invalid event name"
-      {target: words[1], event: words[3]}
+      {target: words[1], type: words[2], event: words[3]}
 
-    when "after"
+    when "after", "every"
       num = tonumber words[3]
       unless is_valid_timer num
-        error "Invalid time value in 'after' transition type"
-      {target: words[1], after: num}
-
-    when "every"
-      num = tonumber words[3]
-      unless is_valid_timer num
-        error "Invalid time value in 'every' transition type"
-      {target: words[1], every: num}
+        error "Invalid time value in 'after/every' transition type"
+      {target: words[1], type: words[2], duration: num}
 
     else
       error "Unknown transition type"

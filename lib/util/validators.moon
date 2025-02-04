@@ -6,7 +6,7 @@
 -- @param x number: The timer value to validate.
 -- @return boolean: Returns `true` if `x` is a positive number; otherwise, returns `false` or `nil`.
 export is_valid_timer = (x) ->
-  x and x > 0
+  type(x) == "number" and x > 0
 
 ---
 -- Checks whether the given string is a valid symbol.
@@ -18,11 +18,7 @@ export is_valid_timer = (x) ->
 -- @param s string: The string to be validated as a symbol.
 -- @return boolean: Returns `true` if `s` contains only letters; otherwise, returns `false`.
 export is_valid_symbol = (s) ->
-  -- Return false immediately if s is not a string.
-  unless type(s) == "string"
-    return false
-  -- Use Lua's pattern matching to ensure the string only contains letters.
-  if string.match s, "^[A-Za-z]+$"
+  if type(s) == "string" and string.match s, "^[A-Za-z][A-Za-z0-9_]*$"
     true
   else
     false
